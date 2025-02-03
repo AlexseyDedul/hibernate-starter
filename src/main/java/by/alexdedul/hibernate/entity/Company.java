@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import lombok.*;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
@@ -15,7 +16,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @ToString(exclude = "users")
-public class Company {
+public class Company implements BaseEntity<Integer>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

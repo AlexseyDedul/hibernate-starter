@@ -1,6 +1,7 @@
 package by.alexdedul.hibernate.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +25,6 @@ public class Profile {
 
     public void setUser(User user) {
         this.user = user;
-        user.setProfile(this);
+//        user.setProfile(this);
     }
 }

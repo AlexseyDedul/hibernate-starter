@@ -1,8 +1,10 @@
 package by.alexdedul.hibernate.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +18,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "username")
-@ToString(exclude = {"company", "profile", "userChats"})
+@ToString(exclude = {"company", "userChats"})
 @Builder
 @Entity
 @Table(name = "users", schema = "public")
-public class User {
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+public class User implements BaseEntity<Long>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,8 +41,8 @@ public class User {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Profile profile;
+//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+//    private Profile profile;
 
     @Builder.Default
     @OneToMany(mappedBy = "user")
